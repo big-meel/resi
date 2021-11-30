@@ -2,38 +2,29 @@ defmodule Resi.Scraper.IndexScraper do
   @raj_url "https://raj.xposureapp.com/"
 
 
-  def get_list_of_ids() do
-    fetch_html()
-    |> parse_response()
-    |> get_id_script()
-    |> get_raw_id_binary()
+  def get_list_of_ids(url \\ @raj_url) do
+    url
+    |> fetch_html()
+    |> process_response()
   end
 
-  defp fetch_html() do
-   case HTTPoison.get(@raj_url) do
-    {:ok, response} ->
-      response.body
-    {:error, reason} ->
-      reason
-   end
+  # TODO: Add condition should nil or incorrect input be entered
+  # TODO: Add Error Handling
+
+  defp fetch_html(url) do
+   {:ok, reason} = HTTPoison.get(url)
+   reason.body
   end
 
-  defp parse_response(html) do
-    case Floki.parse_document(html) do
-      {:ok, list_of_nodes} ->
-        list_of_nodes
-      {:error, reason} ->
-        reason
-    end
-  end
+  defp process_response(html) do
+    {:ok, list_of_nodes} =
+    Floki.parse_document(html)
 
-  defp get_id_script(node_list) do
-    Floki.find(node_list, "script")
-  end
-
-  defp get_raw_id_binary(node) do
-    node
+    list_of_nodes
+    |> Floki.find("script")
     |> List.last
     |> Floki.children
+    # Function to convert list of raw html to listing ids
   end
+
 end
