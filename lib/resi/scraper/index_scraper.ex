@@ -12,8 +12,8 @@ defmodule Resi.Scraper.IndexScraper do
   # TODO: Add Error Handling
 
   defp fetch_html(url) do
-   {:ok, reason} = HTTPoison.get(url)
-   reason.body
+   {:ok, response} = HTTPoison.get(url)
+   response.body
   end
 
   defp process_response(html) do
