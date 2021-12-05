@@ -12,5 +12,5 @@ defmodule Resi.Listing do
     :price_in_cents
   ]
 
-  
+
 end

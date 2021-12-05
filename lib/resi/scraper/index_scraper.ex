@@ -11,12 +11,8 @@ defmodule Resi.Scraper.IndexScraper do
   # TODO: Add condition should nil or incorrect input be entered
   # TODO: Add Error Handling
 
-  defp fetch_html(url) do
-   {:ok, response} = HTTPoison.get(url)
-   response.body
-  end
-
-  defp process_response(html) do
+  @spec process_response(binary)::list()
+  def process_response(html) do
     {:ok, list_of_nodes} =
     Floki.parse_document(html)
 
@@ -26,5 +22,11 @@ defmodule Resi.Scraper.IndexScraper do
     |> Floki.children
     # Function to convert list of raw html to listing ids
   end
+
+  defp fetch_html(url) do
+   {:ok, response} = HTTPoison.get(url)
+   response.body
+  end
+
 
 end
