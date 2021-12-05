@@ -1,6 +1,9 @@
 defmodule Resi.Scraper.ListingScraper do
   @listings_url "https://raj.xposureapp.com/listing/"
 
+  # TODO: Add Error Handeling
+  # TODO: Automate testing
+
   def fetch_listing_html(id) do
     {:ok, response} = HTTPoison.get( format_url(id) )
 
@@ -14,7 +17,7 @@ defmodule Resi.Scraper.ListingScraper do
     |> Floki.attribute("a", "href")
   end
 
-  @spec fetch_details(binary) :: [binary]
+  @spec fetch_details(binary) :: map()
   def fetch_details(nodes) do
     nodes
     |> Floki.find(".detail-tab-content")
@@ -40,9 +43,10 @@ defmodule Resi.Scraper.ListingScraper do
   def compress_to_map(list, map_list \\ %{})
   def compress_to_map(list, map_list) when list == [], do: map_list
   def compress_to_map(list, map_list) do
-   [hd | tail] = list
-   Map.put(map_list, hd, List.first(tail))
+    [key | tail] = list
+    [val | next] = tail
+    map = Map.put(map_list, List.first(key), List.first(val))
 
-   compress_to_map(tail, map_list)
+    compress_to_map(next, map)
   end
 end
