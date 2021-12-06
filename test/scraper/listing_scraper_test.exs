@@ -23,4 +23,6 @@ defmodule Resi.Scraper.ListingScraperTest do
 
   end
 
+  # TODO: Make notes and do research on what to test and how to handle errors
+
 end
