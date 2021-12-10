@@ -4,20 +4,28 @@ defmodule Resi.Scraper.ListingScraper do
   # TODO: Add Error Handeling
   # TODO: Automate testing
 
+  # TODO: Research best practices for get_listing_details
+  def get_listing_details(id) do
+    id
+    |> fetch_listing_html()
+    |> list_nodes()
+    |> fetch_details()
+  end
+
   def fetch_listing_html(id) do
     {:ok, response} = HTTPoison.get( format_url(id) )
 
     response.body
   end
 
-  @spec fetch_image_urls(binary)::list()
+  @spec fetch_image_urls(list)::list()
   def fetch_image_urls(nodes) do
     nodes
     |> Floki.find(".rsImg")
     |> Floki.attribute("a", "href")
   end
 
-  @spec fetch_details(binary) :: map()
+  @spec fetch_details(list) :: map()
   def fetch_details(nodes) do
     nodes
     |> Floki.find(".detail-tab-content")

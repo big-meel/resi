@@ -10,6 +10,7 @@ defmodule Resi.Application do
     children = [
       # Starts a worker by calling: Resi.Worker.start_link(arg)
       # {Resi.Worker, arg}
+      {Task.Supervisor, name: Resi.ScraperSupervisor}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

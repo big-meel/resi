@@ -20,7 +20,13 @@ defmodule Resi.Scraper.IndexScraper do
     |> Floki.find("script")
     |> List.last
     |> Floki.children
-    # Function to convert list of raw html to listing ids
+    |> List.first()
+    |> process_raw_binary_to_ids()
+  end
+
+  def process_raw_binary_to_ids(binary) do
+    binary
+    |> String.split("\"")
   end
 
   defp fetch_html(url) do
