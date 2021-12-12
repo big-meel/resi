@@ -10,6 +10,7 @@ defmodule Resi.Scraper.IndexScraper do
 
   # TODO: Add condition should nil or incorrect input be entered
   # TODO: Add Error Handling
+  # TODO: Add regex pattern matching to ensure ids are valid
 
   @spec process_response(binary)::list()
   def process_response(html) do
