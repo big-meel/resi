@@ -56,5 +56,6 @@ defmodule Resi.Scraper.ListingScraper do
     map = Map.put(map_list, List.first(key), List.first(val))
 
     compress_to_map(next, map)
+    # TODO: Map should change keys from strings to symbols
   end
 end
