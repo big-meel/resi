@@ -44,10 +44,8 @@ defmodule Resi.Scraper.ListingScraper do
     list
   end
 
-  defp format_url(id) do
-    "#{@listings_url}#{id}"
-  end
 
+  @spec compress_to_map([list], any) :: any
   def compress_to_map(list, map_list \\ %{})
   def compress_to_map(list, map_list) when list == [], do: map_list
   def compress_to_map(list, map_list) do
@@ -56,6 +54,16 @@ defmodule Resi.Scraper.ListingScraper do
     map = Map.put(map_list, List.first(key), List.first(val))
 
     compress_to_map(next, map)
-    # TODO: Map should change keys from strings to symbols
   end
+
+  defp format_url(id) do
+    "#{@listings_url}#{id}"
+  end
+
+  # defp convert_to_atom(str) do
+  #   str
+  #   |> String.downcase()
+  #   |> String.replace(" ", "_")
+  #   |> String.to_atom()
+  # end
 end
