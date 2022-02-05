@@ -17,4 +17,18 @@ defmodule Resi.Index do
     {:noreply, list }
   end
 
+  # API
+
+  def start_link(_opts) do
+    GenServer.start_link(__MODULE__, [])
+  end
+
+  def show(pid) do
+    GenServer.call(pid, :show)
+  end
+
+  def get_ids(pid) do
+    GenServer.cast(pid, :get_ids)
+  end
+
 end
