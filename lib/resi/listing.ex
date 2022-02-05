@@ -42,4 +42,18 @@ defmodule Resi.Listing do
     |> Map.put(:mls, scraped_map["MLS® #"])
     |> Map.put(:price_in_cents, scraped_map["Price"] ) # TODO: convert price to cents
   end
+
+  # Client API
+
+  def start_link(_opts) do
+    GenServer.start_link(__MODULE__, %__MODULE__{} )
+  end
+
+  def show(listing) do
+    GenServer.call(listing, :show)
+  end
+
+  def get_details(listing, id) do
+    GenServer.cast(listing, {:get_details, id})
+  end
 end
