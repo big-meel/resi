@@ -1,6 +1,6 @@
 # Resi
 
-**TODO: Add description**
+API that fetches and curates information on home listings (currently in JA).
 
 ## Installation
 
