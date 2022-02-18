@@ -31,7 +31,6 @@ defmodule Resi.Scraper.IndexScraper do
     |> String.split("\"")
   end
 
-  # TODO: Add regex pattern matching to ensure ids are valid
   defp pluck_ids(list) do
       list
       |> Enum.filter( fn x -> String.match?(x, ~r/^\w{3,6}$/) end )
